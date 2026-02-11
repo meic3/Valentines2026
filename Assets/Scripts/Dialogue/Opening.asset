@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016e9c12fa1de4248af7e44b890db3af, type: 3}
+  m_Name: Opening
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: Kai
+    text: "Today is Valentine\u2019s Day, I have a date in\u2026"
+  - speakerName: Kai
+    text: "Oh no, I\u2019m late! I spent too much time watching buff drummers and
+      Brainrot online.\n"
+  - speakerName: Kai
+    text: "I haven\u2019t bought her any gifts yet, I gotta get her something\u2026"
+  - speakerName: Kai
+    text: "Oh well, let\u2019s leave the house first!"
+  dialogueID: Opening
+  playOnce: 1
