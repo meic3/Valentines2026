@@ -33,10 +33,41 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
+    }
+
+    // Call this to reset movement input (e.g., after scene change)
+    public void ResetInput()
+    {
+        move = Vector2.zero;
+
+        // Make sure rb is initialized
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        // Reset animator to stop walking animation
+        if (anim == null)
+        {
+            anim = GetComponentInChildren<Animator>();
+        }
+
+        if (anim != null)
+        {
+            anim.SetBool("IsMoving", false);
+        }
+
+        // Disable movement (will be re-enabled after delay in PlayerSpawnHandler)
+        canMove = false;
     }
 }
