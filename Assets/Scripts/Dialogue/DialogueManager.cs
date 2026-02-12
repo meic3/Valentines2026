@@ -18,6 +18,9 @@ public class DialogueManager : MonoBehaviour
 
     private HashSet<string> playedDialogues = new HashSet<string>();
 
+    private float dialogueCooldown = 0f;
+    private float cooldownDuration = 0.5f; // Adjust this value as needed (in seconds)
+
     void Awake()
     {
         if (Instance == null)
@@ -28,6 +31,11 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (dialogueCooldown > 0)
+        {
+            dialogueCooldown -= Time.deltaTime;
+        }
+
         if (!isTalking) return;
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
@@ -38,6 +46,10 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueData data)
     {
+        // Don't start dialogue if cooldown is active
+        if (dialogueCooldown > 0)
+            return;
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -80,24 +92,14 @@ public class DialogueManager : MonoBehaviour
     void RemoveDialogue()
     {
         dialogueUI.SetActive(false);
+        isTalking = false;
+        dialogueCooldown = cooldownDuration; // Start cooldown timer
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
-        {
-            EndDialogue();
-        }
-    }
-
-    void EndDialogue()
-    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             player.GetComponent<PlayerMovement>().canMove = true;
         }
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
-        {
-            isTalking = false;
-        }    
     }
 
     public bool IsTalking()

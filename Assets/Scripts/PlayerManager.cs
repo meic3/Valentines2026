@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        
+        // Hide exclamation if dialogue is active, otherwise show based on isNotify
         if (DialogueManager.Instance != null && DialogueManager.Instance.IsTalking())
         {
             exclamation.SetActive(false);
@@ -26,15 +26,6 @@ public class PlayerManager : MonoBehaviour
         else
         {
             exclamation.SetActive(isNotify);
-        }
-        
-        if (isNotify)
-        {
-            exclamation.SetActive(true);
-        }
-        else
-        {
-            exclamation.SetActive(false);
         }
     }
 }
