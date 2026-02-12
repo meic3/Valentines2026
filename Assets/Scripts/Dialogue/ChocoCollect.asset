@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 016e9c12fa1de4248af7e44b890db3af, type: 3}
+  m_Name: ChocoCollect
+  m_EditorClassIdentifier: 
+  lines:
+  - speakerName: Chocolatier
+    text: What are you looking for?
+  - speakerName: Kai
+    text: Hi, I wanna get chocolate for my girlfriend. Any suggestions?
+  - speakerName: Chocolatier
+    text: 'How about an assortment of chocolate. '
+  - speakerName: Chocolatier
+    text: "It comes in a heart shaped box, it\u2019s our best seller during valentines
+      season."
+  - speakerName: Kai
+    text: "I\u2019ll take that. Thanks!"
+  dialogueID: ChocoCollect
+  playOnce: 1
+  unlockItemUI: 0
+  collectItem: 1
+  itemIndex: 2
