@@ -38,6 +38,11 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueData data)
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<PlayerMovement>().canMove = false;
+        }
         if (data.playOnce && playedDialogues.Contains(data.dialogueID))
             return;
 
@@ -75,7 +80,6 @@ public class DialogueManager : MonoBehaviour
     void RemoveDialogue()
     {
         dialogueUI.SetActive(false);
-        if (!isTalking) return;
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
         {
@@ -85,6 +89,11 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<PlayerMovement>().canMove = true;
+        }
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
         {
             isTalking = false;

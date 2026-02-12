@@ -18,6 +18,16 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsTalking())
+        {
+            exclamation.SetActive(false);
+        }
+        else
+        {
+            exclamation.SetActive(isNotify);
+        }
+        
         if (isNotify)
         {
             exclamation.SetActive(true);
