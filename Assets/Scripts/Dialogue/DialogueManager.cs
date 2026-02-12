@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     private DialogueLine[] lines;
     private int index;
     private bool isTalking;
+    private DialogueData currentDialogue; // Track current dialogue for item handling
 
     private HashSet<string> playedDialogues = new HashSet<string>();
 
@@ -61,6 +62,8 @@ public class DialogueManager : MonoBehaviour
         isTalking = true;
         dialogueUI.SetActive(true);
 
+        currentDialogue = data; // Store current dialogue
+
         lines = data.lines;
         index = 0;
 
@@ -94,6 +97,24 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.SetActive(false);
         isTalking = false;
         dialogueCooldown = cooldownDuration; // Start cooldown timer
+
+        // Handle item-related actions
+        if (currentDialogue != null && ItemManager.Instance != null)
+        {
+            // Unlock item UI if specified
+            if (currentDialogue.unlockItemUI)
+            {
+                ItemManager.Instance.UnlockItemUI();
+            }
+
+            // Collect item if specified
+            if (currentDialogue.collectItem && currentDialogue.itemIndex >= 0)
+            {
+                ItemManager.Instance.CollectItem(currentDialogue.itemIndex);
+            }
+        }
+
+        currentDialogue = null; // Clear current dialogue reference
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)

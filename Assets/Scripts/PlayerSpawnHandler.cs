@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerSpawnHandler : MonoBehaviour
 {
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -29,7 +31,7 @@ public class PlayerSpawnHandler : MonoBehaviour
             {
                 transform.position = spawn.transform.position;
 
-                // 向きもここで設定
+                // Set facing direction
                 Animator anim = GetComponentInChildren<Animator>();
                 anim.SetFloat("MoveX", spawn.facingDirection.x);
                 anim.SetFloat("MoveY", spawn.facingDirection.y);

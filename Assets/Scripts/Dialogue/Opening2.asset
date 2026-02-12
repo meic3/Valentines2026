@@ -20,3 +20,6 @@ MonoBehaviour:
       the toy store towards the east and the chocolatier towards the south-east."
   dialogueID: Opening2
   playOnce: 1
+  unlockItemUI: 1
+  collectItem: 0
+  itemIndex: -1
