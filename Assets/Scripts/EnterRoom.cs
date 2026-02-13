@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EnterRoom: MonoBehaviour
+public class EnterRoom : MonoBehaviour
 {
     [SerializeField]
     public string nextSceneName;
@@ -27,8 +27,18 @@ public class EnterRoom: MonoBehaviour
         if (requireInteraction && canEnter && Input.GetKeyDown(KeyCode.Space))
         {
             playerManager.isNotify = false;
-            GameManager.instance.nextSpawnID = spawnID;
-            SceneManager.LoadScene(nextSceneName);
+
+            // Use SceneTransition for fade effect
+            if (SceneTransition.Instance != null)
+            {
+                SceneTransition.Instance.LoadSceneWithFade(nextSceneName, spawnID);
+            }
+            else
+            {
+                // Fallback to direct scene load
+                GameManager.instance.nextSpawnID = spawnID;
+                SceneManager.LoadScene(nextSceneName);
+            }
         }
     }
 
@@ -39,11 +49,19 @@ public class EnterRoom: MonoBehaviour
             playerManager.isNotify = true;
             canEnter = true;
         }
-        else
+        else if (other.CompareTag("Player"))
         {
-            GameManager.instance.nextSpawnID = spawnID;
-            SceneManager.LoadScene(nextSceneName);
-
+            // Use SceneTransition for fade effect
+            if (SceneTransition.Instance != null)
+            {
+                SceneTransition.Instance.LoadSceneWithFade(nextSceneName, spawnID);
+            }
+            else
+            {
+                // Fallback to direct scene load
+                GameManager.instance.nextSpawnID = spawnID;
+                SceneManager.LoadScene(nextSceneName);
+            }
         }
     }
 

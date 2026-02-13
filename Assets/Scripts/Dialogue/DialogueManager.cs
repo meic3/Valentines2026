@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
@@ -12,10 +13,16 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text nameText;
     public TMP_Text dialogueText;
 
+    [Header("Typewriter Effect")]
+    [SerializeField] private float typeSpeed = 0.05f; // Time between each character
+    [SerializeField] private bool playBlipSound = true; // Play sound for each character
+
     private DialogueLine[] lines;
     private int index;
     private bool isTalking;
     private DialogueData currentDialogue; // Track current dialogue for item handling
+    private Coroutine typingCoroutine;
+    private bool isTyping = false;
 
     private HashSet<string> playedDialogues = new HashSet<string>();
 
@@ -41,7 +48,16 @@ public class DialogueManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
         {
-            NextLine();
+            if (isTyping)
+            {
+                // Skip typewriter effect and show full text immediately
+                SkipTypewriter();
+            }
+            else
+            {
+                // Move to next line
+                NextLine();
+            }
         }
     }
 
@@ -76,7 +92,49 @@ public class DialogueManager : MonoBehaviour
     void ShowLine()
     {
         nameText.text = lines[index].speakerName;
+
+        // Stop any existing typing coroutine
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+
+        // Start typewriter effect
+        typingCoroutine = StartCoroutine(TypewriterEffect(lines[index].text));
+    }
+
+    IEnumerator TypewriterEffect(string fullText)
+    {
+        isTyping = true;
+        dialogueText.text = "";
+
+        foreach (char c in fullText)
+        {
+            dialogueText.text += c;
+
+            // Play blip sound for each character (except spaces)
+            if (playBlipSound && c != ' ' && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayDialogueBlip();
+            }
+
+            yield return new WaitForSeconds(typeSpeed);
+        }
+
+        isTyping = false;
+    }
+
+    void SkipTypewriter()
+    {
+        // Stop the typing coroutine
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+
+        // Show full text immediately
         dialogueText.text = lines[index].text;
+        isTyping = false;
     }
 
     void NextLine()

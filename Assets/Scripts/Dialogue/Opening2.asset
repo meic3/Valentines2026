@@ -16,8 +16,9 @@ MonoBehaviour:
   - speakerName: Kai
     text: I should get her a drink, something small and cute, and of course chocolate.
   - speakerName: Kai
-    text: "I\u2019m pretty sure I can go to the convenience store towards the south,
-      the toy store towards the east and the chocolatier towards the south-east."
+    text: "I\u2019m pretty sure I can go to the convenience store towards the south, "
+  - speakerName: Kai
+    text: the toy store towards the east and the chocolatier towards the south-east.
   dialogueID: Opening2
   playOnce: 1
   unlockItemUI: 1

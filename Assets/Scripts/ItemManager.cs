@@ -69,6 +69,12 @@ public class ItemManager : MonoBehaviour
                 itemSlots[itemIndex].sprite = collectedItemSprites[itemIndex];
             }
 
+            // Play item collect sound
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayItemCollect();
+            }
+
             Debug.Log("Item " + itemIndex + " collected!");
         }
     }
@@ -102,5 +108,23 @@ public class ItemManager : MonoBehaviour
                 count++;
         }
         return count;
+    }
+
+    // Hide the item UI (e.g., during ending sequence)
+    public void HideItemUI()
+    {
+        if (itemUI != null)
+        {
+            itemUI.SetActive(false);
+        }
+    }
+
+    // Show the item UI
+    public void ShowItemUI()
+    {
+        if (itemUI != null && itemUIUnlocked)
+        {
+            itemUI.SetActive(true);
+        }
     }
 }
