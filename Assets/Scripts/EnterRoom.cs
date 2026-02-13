@@ -31,6 +31,7 @@ public class EnterRoom : MonoBehaviour
             // Use SceneTransition for fade effect
             if (SceneTransition.Instance != null)
             {
+                AudioManager.Instance.PlayDoorOpen();
                 SceneTransition.Instance.LoadSceneWithFade(nextSceneName, spawnID);
             }
             else
@@ -54,6 +55,7 @@ public class EnterRoom : MonoBehaviour
             // Use SceneTransition for fade effect
             if (SceneTransition.Instance != null)
             {
+                AudioManager.Instance.PlayDoorOpen();
                 SceneTransition.Instance.LoadSceneWithFade(nextSceneName, spawnID);
             }
             else

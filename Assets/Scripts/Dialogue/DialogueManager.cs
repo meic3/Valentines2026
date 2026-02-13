@@ -140,9 +140,11 @@ public class DialogueManager : MonoBehaviour
     void NextLine()
     {
         index++;
+        AudioManager.Instance.PlayButtonClick();
 
         if (index >= lines.Length)
         {
+            AudioManager.Instance.PlayButtonClick();
             RemoveDialogue();
             return;
         }
@@ -185,4 +187,4 @@ public class DialogueManager : MonoBehaviour
     {
         return isTalking;
     }
-}
+} 
