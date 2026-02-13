@@ -104,6 +104,35 @@ public class AudioManager : MonoBehaviour
             PlaySFX(dialogueBlip);
     }
 
+    // Play dialogue blip with specific pitch based on speaker
+    public void PlayDialogueBlipForSpeaker(string speakerName)
+    {
+        if (dialogueBlip == null || sfxSource == null)
+            return;
+
+        // Set pitch based on speaker (more extreme differences for clarity)
+        float pitch = 1f; // Default pitch (Chocolatier)
+
+        if (speakerName.Contains("Kai"))
+        {
+            pitch = 0.6f; // Very low pitch for Kai
+            Debug.Log($"Playing Kai's blip at pitch: {pitch}");
+        }
+        else if (speakerName.Contains("Mei"))
+        {
+            pitch = 1.5f; // Very high pitch for Mei
+            Debug.Log($"Playing Mei's blip at pitch: {pitch}");
+        }
+        else
+        {
+            Debug.Log($"Playing {speakerName}'s blip at pitch: {pitch} (default)");
+        }
+
+        // Set pitch and play (don't reset pitch - it will be set again next time)
+        sfxSource.pitch = pitch;
+        sfxSource.PlayOneShot(dialogueBlip);
+    }
+
     public void PlayButtonClick()
     {
         if (buttonClick != null)

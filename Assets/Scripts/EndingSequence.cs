@@ -27,6 +27,10 @@ public class EndingSequence : MonoBehaviour
     [SerializeField] private string finalMessage = "Happy Valentines ♥";
     [SerializeField] private float finalMessageFadeInDuration = 2f;
 
+    [Header("Audio Settings")]
+    [SerializeField] private int endingMusicTrackIndex = 1; // Which music track to play during ending
+    [SerializeField] private string letterSpeakerName = "Mei"; // Speaker for the letter (affects blip pitch)
+
     private bool isPlayingEnding = false;
     private bool hasShownFinalMessage = false; // Prevent showing twice
 
@@ -89,6 +93,12 @@ public class EndingSequence : MonoBehaviour
     IEnumerator PlayEndingSequence()
     {
         isPlayingEnding = true;
+
+        // Change music to ending track
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMusic(endingMusicTrackIndex);
+        }
 
         // Hide item UI if it exists
         if (ItemManager.Instance != null)
@@ -192,10 +202,10 @@ public class EndingSequence : MonoBehaviour
         {
             letterText.text += c;
 
-            // Play sound for each character (except spaces)
+            // Play sound for each character (except spaces) with speaker-based pitch
             if (c != ' ' && AudioManager.Instance != null)
             {
-                AudioManager.Instance.PlayDialogueBlip();
+                AudioManager.Instance.PlayDialogueBlipForSpeaker(letterSpeakerName);
             }
 
             yield return new WaitForSeconds(typeSpeed);

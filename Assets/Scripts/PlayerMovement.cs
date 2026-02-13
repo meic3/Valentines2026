@@ -47,8 +47,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (isMoving)
         {
-            anim.SetFloat("MoveZ", move.y);
-            anim.SetFloat("MoveX", move.x);
+            // Fix diagonal movement animation flickering
+            // Prioritize vertical movement over horizontal when moving diagonally
+            if (Mathf.Abs(move.y) > 0.1f)
+            {
+                // Vertical movement takes priority
+                anim.SetFloat("MoveZ", move.y);
+                anim.SetFloat("MoveX", 0);
+            }
+            else if (Mathf.Abs(move.x) > 0.1f)
+            {
+                // Only use horizontal if not moving vertically
+                anim.SetFloat("MoveZ", 0);
+                anim.SetFloat("MoveX", move.x);
+            }
 
             // Play footsteps
             PlayFootsteps();

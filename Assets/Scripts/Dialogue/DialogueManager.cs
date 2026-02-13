@@ -115,7 +115,9 @@ public class DialogueManager : MonoBehaviour
             // Play blip sound for each character (except spaces)
             if (playBlipSound && c != ' ' && AudioManager.Instance != null)
             {
-                AudioManager.Instance.PlayDialogueBlip();
+                // Use speaker name to determine pitch
+                string speakerName = lines[index].speakerName;
+                AudioManager.Instance.PlayDialogueBlipForSpeaker(speakerName);
             }
 
             yield return new WaitForSeconds(typeSpeed);
@@ -140,11 +142,9 @@ public class DialogueManager : MonoBehaviour
     void NextLine()
     {
         index++;
-        AudioManager.Instance.PlayButtonClick();
 
         if (index >= lines.Length)
         {
-            AudioManager.Instance.PlayButtonClick();
             RemoveDialogue();
             return;
         }
@@ -187,4 +187,4 @@ public class DialogueManager : MonoBehaviour
     {
         return isTalking;
     }
-} 
+}

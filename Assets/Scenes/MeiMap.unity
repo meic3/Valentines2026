@@ -3120,6 +3120,8 @@ MonoBehaviour:
   finalMessageDelay: 0.5
   finalMessage: "Happy Valentines\u2665"
   finalMessageFadeInDuration: 2
+  endingMusicTrackIndex: 1
+  letterSpeakerName: Mei
 --- !u!4 &1649256129
 Transform:
   m_ObjectHideFlags: 0
@@ -3497,7 +3499,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
